@@ -1,0 +1,9 @@
+{
+	"id": "be.venefyxatu.palm.craft",
+	"version": "1.0.0",
+	"vendor": "Venefyxatu",
+	"type": "web",
+	"main": "index.html",
+	"title": "Craft",
+	"icon": "icon.png"
+}
