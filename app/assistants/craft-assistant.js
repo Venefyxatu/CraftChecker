@@ -3,6 +3,8 @@ function CraftAssistant() {
 	   additional parameters (after the scene name) that were passed to pushScene. The reference
 	   to the scene controller (this.controller) has not be established yet, so any initialization
 	   that needs the scene controller should be done in the setup function below. */
+
+    this.honest = true;
 }
 
 CraftAssistant.prototype.setup = function() {
@@ -36,6 +38,24 @@ CraftAssistant.prototype.setup = function() {
               disabled: true
             });
 
+    this.controller.setupWidget(Mojo.Menu.commandMenu, undefined, 
+            this.cmdMenuModel = {
+                visible: true,
+                items: [
+                    { 
+                        toggleCmd: "honest", 
+                        items: [
+                            {},
+                            {label: "Honest", command: "setHonest" }, 
+                            { label: "Dishonest", command: "setDishonest" },
+                            {}
+                        ]
+                    }
+                ]
+            });
+
+    this.cmdMenuModel.items[0].toggleCmd = "setHonest";
+    this.controller.modelChanged(this.cmdMenuModel);
 
     this.calculateHandler = this.calculate.bindAsEventListener(this);
 
@@ -58,14 +78,29 @@ CraftAssistant.prototype.cleanup = function(event) {
     this.controller.stopListening(this.controller.get("calculate"), Mojo.Event.tap, this.calculateHandler);
 };
 
+CraftAssistant.prototype.handleCommand = function(event) {
+    if (event.type == Mojo.Event.command) {
+        switch (event.command) {
+            case "setHonest":
+                this.honest = true;
+                break;
+            case "setDishonest":
+                this.honest = false;
+                break;
+        }
+    }
+};
+
 CraftAssistant.prototype.calculate = function(event) {
     this.logModel.value = "";
     this.controller.modelChanged(this.logModel, this);
-    calculator = new Calculator(this, this.intBonusModel.value, this.craftRanksModel.value, this.craftMiscModel.value, this.dcModel.value, this.itemPriceModel.value);
+    Mojo.Log.info("honesty: " + this.honest);
+    calculator = new Calculator(this, this.intBonusModel.value, this.craftRanksModel.value, this.craftMiscModel.value, this.dcModel.value, this.itemPriceModel.value, this.honest);
     calculator.calculate()
 };
 
 CraftAssistant.prototype.logEntry = function(logLine) {
+    Mojo.Log.info(logLine);
     this.logModel.value += logLine;
     this.controller.modelChanged(this.logModel, this);
 };
