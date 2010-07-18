@@ -1,5 +1,8 @@
 [
+    {"source": "app/assistants/stage-assistant.js"},
     {
-        "source": "app/assistants/stage-assistant.js"
-    }
+        "scenes": "craft",
+        "source": "app/assistants/craft-assistant.js"
+    },
+    {"source": "app/models/calculator.js"}
 ]
