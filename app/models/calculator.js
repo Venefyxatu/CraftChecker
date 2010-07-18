@@ -31,10 +31,10 @@ var Calculator = Class.create({
             if (craftResult.success == true) {
                 ok = true;
             }
-            this.sceneController.logEntry("\rDay " + days + "\r");
+            this.sceneController.logEntry("Day " + days + "\r");
             this.sceneController.logEntry("-----------\r");
             this.sceneController.logEntry("    Check result: D20 (" + craftResult.dieRoll + ") * (Craft (" + this.craftranks + " + " + this.craftmisc + ") + INT (" + this.intbonus + ")) = " + craftResult.result + "\r");
-            this.sceneController.logEntry("    Price left: " + remainingPrice + " - " + craftResult.result + " = " + (remainingPrice - craftResult.result) + "\r");
+            this.sceneController.logEntry("    Price left: " + remainingPrice + " - " + craftResult.result + " = " + (remainingPrice - craftResult.result) + "\r\r");
             remainingPrice -= craftResult.result;
             if (remainingPrice < 0) {
                 // blehh - find a cleaner way to do this
