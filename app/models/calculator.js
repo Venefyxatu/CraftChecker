@@ -56,6 +56,7 @@ var Calculator = Class.create({
 
         craftCheck = this.rollDie();
         result = craftCheck + this.intbonus + this.craftranks + this.craftmisc;
+        this.sceneController.logEntry("\r\rFinal craft check : D20 (" + craftCheck + ") + INT (" + this.intbonus + ") + ranks (" + this.craftranks + ") + misc (" + this.craftmisc + ") = " + result);
         if (result >= this.dc) {
             this.sceneController.logEntry("\r\rFinal craft check succeeded. The item is finished.");
         }
